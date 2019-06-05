@@ -1,8 +1,8 @@
-public class Animal {
+public abstract class Animal implements IAnimal {
   // primative values caannot be null
-  private int numberOfLegs;
-  private String type;
-  private String name;
+  protected int numberOfLegs;
+  protected String type;
+  protected String name;
 
   public Animal(int numberOfLegs, String type) {
     this.numberOfLegs = numberOfLegs;
