@@ -33,4 +33,22 @@ public class BookService {
 		
 		return null;
 	}
+	
+	public Book update(Long id, String title, String publisher, Integer pages) {
+		Book book = findById(id);
+		
+		book.setPages(pages);
+		book.setTitle(title);
+		book.setPublisher(publisher);
+		
+		return update(book);
+	}
+	
+	public Book update(Book book) {
+		return bookRepo.save(book);
+	}
+	
+	public void removeBook(Long id) {
+		bookRepo.deleteById(id);
+	}
 }
