@@ -4,13 +4,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -20,6 +24,7 @@ public class Book {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@Size(min=2, max=20)
 	private String title;
 	
@@ -27,12 +32,25 @@ public class Book {
 	private Integer pages;
 	private String publisher;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="author_id")
+	private Author author;
+	
+	
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
 	
 	public Book() {}
 
+	public Author getAuthor() {
+		return author;
+	}
+	
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+	
 	public Long getId() {
 		return id;
 	}
