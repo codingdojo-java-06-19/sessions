@@ -2,6 +2,7 @@ package com.codingdojo.books.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,14 @@ public class BookController {
 	}
 	
 	@RequestMapping("")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
+		Long id = (Long) session.getAttribute("userId");
+		
+		if (id == null) {
+			return "redirect:/";
+		}
+		
+		
 		List<Book> books = bookService.findAllBooks();
 		
 		model.addAttribute("books", books);
